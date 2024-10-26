@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 
 const WeatherApp = () => {
-  const [activeCity, setActiveCity] = useState('Delhi');
+  const [currentCity, setcurrentCity] = useState('Delhi');
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
-  const [tempUnit, setTempUnit] = useState('C'); // Celsius by default
+  const [tempUnit, setTempUnit] = useState('C'); 
   const [lastUpdated, setLastUpdated] = useState(null);
   const [avgTemp, setAvgTemp] = useState(null);
 const [minTemp, setMinTemp] = useState(null);
@@ -28,7 +28,7 @@ const getWeatherData = async (city) => {
       }
       const data = await response.json();
 
-      // Extract temperature in Celsius (from Kelvin)
+     
       const temperature = data.main.temp - 273.15;
 
       setWeatherData(data);
@@ -36,8 +36,8 @@ const getWeatherData = async (city) => {
       setLastUpdated(new Date().toLocaleTimeString());
 
       const now = new Date();
-      const day = now.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-      const hourlyTime = now.toISOString(); // Full ISO string for date-time
+      const day = now.toISOString().split('T')[0];
+      const hourlyTime = now.toISOString(); 
 
       const payload = {
           city,             // City name
@@ -53,16 +53,16 @@ const getWeatherData = async (city) => {
               headers: {
                   'Content-Type': 'application/json',
               },
-              body: JSON.stringify(payload), // Sending the structured payload to the backend
+              body: JSON.stringify(payload), 
           });
 
           if (!response.ok) {
               throw new Error('Failed to post weather data to backend');
           }
 
-          const backendData = await response.json(); // Get the response from the backend
+          const backendData = await response.json(); 
 
-          // Extract the avgTemperature, minTemperature, maxTemperature from the backend response
+          
           const { avgTemperature, minTemperature, maxTemperature } = backendData;
 
           // Store these in the state to render them in the UI
@@ -83,17 +83,17 @@ const getWeatherData = async (city) => {
 
 
   useEffect(() => {
-    // Initial data fetch
-    getWeatherData(activeCity);
+   
+    getWeatherData(currentCity);
 
-    // Set up interval to fetch data every 5 minutes
+
     const intervalId = setInterval(() => {
-      getWeatherData(activeCity);
-    }, 300000); // 300000 ms = 5 minutes
+      getWeatherData(currentCity);
+    }, 300000); 
 
-    // Cleanup interval on component unmount
+   
     return () => clearInterval(intervalId);
-  }, [activeCity]);
+  }, [currentCity]);
 
   const handleTempUnitChange = (unit) => {
     setTempUnit(unit);
@@ -125,10 +125,10 @@ const getWeatherData = async (city) => {
                 <button
                   key={city}
                   className={`btn btn-outline-dark fw-bold ${
-                    activeCity === city ? 'active' : ''
+                    currentCity === city ? 'active' : ''
                   }`}
                   onClick={() => {
-                    setActiveCity(city);
+                    setcurrentCity(city);
                     getWeatherData(city);
                   }}
                 >
@@ -142,7 +142,7 @@ const getWeatherData = async (city) => {
           <div className='container p-5 feedback-box'>
             <div className='row'>
               <h3 className='text-center'>
-                {activeCity} Weather Data
+                {currentCity} Weather Data
               </h3>
             </div>
 
