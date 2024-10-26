@@ -5,13 +5,13 @@ import Header from "./header";
 
 const Portal = () => {
   return (
-    <HashRouter>
+    <>
       <Header />
       <Routes>
-       <Route exact path="/" element={<WeatherApp />} />
+       <Route  path="/data" element={<WeatherApp />} />
        
       </Routes>
-    </HashRouter>
+    </>
   );
 };
 

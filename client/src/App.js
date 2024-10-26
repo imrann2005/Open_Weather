@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Portal from './portal';
-import Login from './login';
+import Login from './Login';
 import { gapi } from 'gapi-script';
 
 const clientId = "925306536966-8krnsg2kdor08se5s6d47vla1pec5f2f.apps.googleusercontent.com";
