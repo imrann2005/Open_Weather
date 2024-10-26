@@ -5,14 +5,16 @@ const GOOGLE_OAUTH_CLIENT_ID = "925306536966-8krnsg2kdor08se5s6d47vla1pec5f2f.ap
 
 const Login = () => {
 
-  const handleLoginSuccess = (response) => {
-    console.log("Login Successful! User: ", response.profileObj);
-    localStorage.setItem("userId", response.profileObj.googleId);
-    localStorage.setItem("userName", response.profileObj.name);
+  const handleLoginSuccess = (res) => {
+    console.log("LOGIN SUCCESS! Current user: ", res.profileObj);
 
-    // Redirect and reload after login
-    window.location.href = "http://localhost:3000/data";
-    //window.location.reload();
+    // Save user information in local storage
+    localStorage.setItem("fullname", res.profileObj.name);
+    localStorage.setItem("userid", res.profileObj.googleId);
+
+    // Redirect to /data route and reload page to render `Portal` with `WeatherApp`
+    window.location.href = "/#/data"; // Navigate to the data route after login
+    window.location.reload(); // Reload the page to ensure the app renders the `Portal` component
   };
 
   const handleLoginFailure = (response) => {

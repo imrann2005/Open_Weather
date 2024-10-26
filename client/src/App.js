@@ -15,7 +15,7 @@ function App() {
     };
 
     gapi.load('client:auth2', start);
-  });
+  },[]);
   
   let userid = localStorage.getItem("fullname");
   if(userid == null)
